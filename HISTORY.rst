@@ -7,3 +7,9 @@ History
 ---------------------
 
 * First code creation
+
+
+0.1.0 (16-08-2019)
+------------------
+
+* Renamed from bankinterfaceslib
