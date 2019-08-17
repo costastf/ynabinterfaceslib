@@ -81,10 +81,10 @@ class AccountAuthenticator(abc.ABC):
         driver.implicitly_wait(PAGE_TRANSITION_WAIT)
         return driver
 
-    def _click_on(self, xpath):
+    def _click_on(self, xpath, wait=PAGE_TRANSITION_WAIT):
         self._logger.debug('Waiting for %s', xpath)
         WebDriverWait(self._driver,
-                      PAGE_TRANSITION_WAIT).until(expected_conditions.element_to_be_clickable((By.XPATH, xpath)))
+                      wait).until(expected_conditions.element_to_be_clickable((By.XPATH, xpath)))
         self._logger.debug('Clicking %s', xpath)
         self._driver.find_element_by_xpath(xpath).click()
 
