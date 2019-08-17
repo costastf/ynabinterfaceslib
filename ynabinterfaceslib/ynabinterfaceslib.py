@@ -59,7 +59,7 @@ LOGGER = logging.getLogger(LOGGER_BASENAME)
 LOGGER.addHandler(logging.NullHandler())
 
 
-PAGE_TRANSITION_WAIT = 120
+PAGE_TRANSITION_WAIT = 10
 
 
 class AccountAuthenticator(abc.ABC):
