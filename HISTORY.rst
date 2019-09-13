@@ -19,3 +19,9 @@ History
 ------------------
 
 * Made timeout on click event configurable
+
+
+1.0.0 (13-09-2019)
+------------------
+
+* Removed selenium authenticator
