@@ -35,13 +35,6 @@ import abc
 import logging
 from collections import OrderedDict
 
-from requests import Session
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.ui import WebDriverWait
-from webdriver_manager.chrome import ChromeDriverManager
-
 __author__ = '''Costas Tyfoxylos <costas.tyf@gmail.com>'''
 __docformat__ = '''google'''
 __date__ = '''16-08-2019'''
@@ -57,66 +50,6 @@ __status__ = '''Development'''  # "Prototype", "Development", "Production".
 LOGGER_BASENAME = '''ynabinterfaceslib'''
 LOGGER = logging.getLogger(LOGGER_BASENAME)
 LOGGER.addHandler(logging.NullHandler())
-
-
-PAGE_TRANSITION_WAIT = 120
-
-
-class AccountAuthenticator(abc.ABC):
-    """Implements an interface for an account authenticator."""
-
-    def __init__(self):
-        self._logger = logging.getLogger(f'{LOGGER_BASENAME}.{self.__class__.__name__}')
-        self._driver = self._initialize_chrome()
-
-    def _initialize_chrome(self):
-        self._logger.debug('Initializing chrome in headless mode')
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_argument('--headless')
-        chrome_options.add_argument('window-size=1920,1080')
-        chrome_options.add_argument('--disable-gpu')
-        chrome_options.add_argument('--no-sandbox')
-        driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(),
-                                  chrome_options=chrome_options)
-        driver.implicitly_wait(PAGE_TRANSITION_WAIT)
-        return driver
-
-    def _click_on(self, xpath):
-        self._logger.debug('Waiting for %s', xpath)
-        WebDriverWait(self._driver,
-                      PAGE_TRANSITION_WAIT).until(expected_conditions.element_to_be_clickable((By.XPATH, xpath)))
-        self._logger.debug('Clicking %s', xpath)
-        self._driver.find_element_by_xpath(xpath).click()
-
-    @abc.abstractmethod
-    def authenticate(self, *args, **kwargs):
-        """Should implement the authentication business logic."""
-        pass
-
-    def get_authenticated_session(self):
-        """Retrieves a requests compatible authentication session.
-
-        Returns:
-            session (Session): The authenticated session
-
-        """
-        self._logger.info('Log in successful, getting session cookies.')
-        session = Session()
-        self._logger.debug('Transferring cookies to a requests session.')
-        for cookie in self._driver.get_cookies():
-            for invalid in ['httpOnly', 'expiry']:
-                try:
-                    del cookie[invalid]
-                except KeyError:
-                    pass
-            session.cookies.set(**cookie)
-        self.quit()
-        return session
-
-    def quit(self):
-        """Quits the headless browser."""
-        self._logger.debug('Closing chrome')
-        self._driver.quit()
 
 
 class Comparable(abc.ABC):

@@ -32,7 +32,7 @@ Import all parts from ynabinterfaceslib here
    http://google.github.io/styleguide/pyguide.html
 """
 from ._version import __version__
-from .ynabinterfaceslib import Comparable, Contract, Transaction, AccountAuthenticator
+from .ynabinterfaceslib import Comparable, Contract, Transaction
 
 
 __author__ = '''Costas Tyfoxylos <costas.tyf@gmail.com>'''
@@ -49,4 +49,3 @@ assert __version__
 assert Contract
 assert Comparable
 assert Transaction
-assert AccountAuthenticator
