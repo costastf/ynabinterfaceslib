@@ -59,7 +59,7 @@ class Comparable(abc.ABC):
         self._logger = logging.getLogger(f'{LOGGER_BASENAME}.{self.__class__.__name__}')
         self._data = data
 
-    @abc.abstractmethod
+    @property
     def _comparable_attributes(self):
         pass
 
@@ -73,22 +73,18 @@ class Comparable(abc.ABC):
     def __eq__(self, other):
         """Override the default equals behavior."""
         if not isinstance(other, Comparable):
-            raise ValueError(f'Not a Comparable object')
+            raise ValueError('Not a Comparable object')
         return hash(self) == hash(other)
 
     def __ne__(self, other):
         """Override the default unequal behavior."""
         if not isinstance(other, Comparable):
-            raise ValueError(f'Not a Comparable object')
+            raise ValueError('Not a Comparable object')
         return hash(self) != hash(other)
 
 
 class Transaction(Comparable):  # pylint: disable=too-few-public-methods
     """Interface for a transaction object."""
-
-    @abc.abstractmethod
-    def _comparable_attributes(self):
-        pass
 
     @staticmethod
     def _clean_up(string):
@@ -107,4 +103,3 @@ class Contract(abc.ABC):  # pylint: disable=too-few-public-methods
         In case of single accounts in contract should be implemented to return the only account
         even with no argument provided.
         """
-        pass
