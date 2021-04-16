@@ -25,3 +25,9 @@ History
 ------------------
 
 * Removed selenium authenticator
+
+
+1.0.1 (16-04-2021)
+------------------
+
+* Updated an abstract method to property and bumped dependencies.
