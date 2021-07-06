@@ -37,3 +37,9 @@ History
 ------------------
 
 * Bumped dependencies and renamed main branch.
+
+
+1.0.3 (06-07-2021)
+------------------
+
+* Bumped dependencies and renamed main branch.
