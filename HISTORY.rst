@@ -31,3 +31,9 @@ History
 ------------------
 
 * Updated an abstract method to property and bumped dependencies.
+
+
+1.0.2 (06-07-2021)
+------------------
+
+* Bumped dependencies and renamed main branch.
